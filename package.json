@@ -1,0 +1,21 @@
+{
+  "name": "prism-studio",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Prism Studio — GUI client for the Prism (PRSM) network. Prototype UI built to spec.md.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^5.4.11"
+  }
+}

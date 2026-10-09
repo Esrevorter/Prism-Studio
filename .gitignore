@@ -1,0 +1,5 @@
+node_modules/
+dist/
+npm-install.log
+dev.log
+.DS_Store
