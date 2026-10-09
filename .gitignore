@@ -1,5 +1,5 @@
-node_modules/
-dist/
-npm-install.log
-dev.log
-.DS_Store
+# Rust / Cargo
+target/
+
+# Logs and Temp files
+*.log

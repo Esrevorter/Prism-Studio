@@ -1,0 +1,40 @@
+[package]
+name = "prism-studio"
+version = "0.1.0"
+description = "Prism Studio — GUI client for the Prism (PRSM) network (spec.md §4: Tauri shell + Rust core)"
+edition = "2021"
+
+# Two targets share this crate:
+#   * the `prism_core` library  — pure logic (intent parsing, DAW detection,
+#     MPC splitting). Builds and tests fully OFFLINE with std only.
+#   * the binary / Tauri commands layer — needs the tauri deps; compiled only
+#     when building the desktop app (`cargo tauri dev`). We keep it behind an
+#     optional feature so CI sandboxes without system webkit libs can still
+#     run `cargo test --features core-only`.
+[lib]
+name = "prism_core"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[features]
+default = ["core-only"]
+core-only = []
+desktop = ["dep:tauri", "dep:serde", "dep:serde_json"]
+
+[dependencies]
+sysinfo = "0.30"          # cross-platform process telemetry (DAW-Throttle)
+rand = "0.8"              # field sampling for the GG20 dealer
+sha2 = "0.10"             # commitments over shard values
+hex = "0.4"
+
+# Heavy/optional deps: only pulled in for the real desktop build.
+tauri = { version = "2", features = [], optional = true }
+serde = { version = "1", features = ["derive"], optional = true }
+serde_json = { version = "1", optional = true }
+
+[dev-dependencies]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
